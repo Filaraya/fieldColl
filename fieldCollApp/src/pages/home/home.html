@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3 class="no-incident" text-center *ngIf="loadIncidents().length === 0">
+    No incident available on the list! 
+    
+  </h3>
+  <ion-list>
+    <ion-item-sliding *ngFor="let incident of loadIncidents(); let i = index">
+      <ion-item>
+        <h2>{{incident.name}}</h2>
+        <p>{{incident.quantity}}</p>
+
+      </ion-item>
+      
+      <ion-item-options>
+        <button (click)="editIncident(incident, i)" ion-button color="primary" icon-start>
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </button>
+        <button (click)="shareIncident(item, i)" ion-button color="light" icon-start>
+          <ion-icon name="share"></ion-icon>
+          Share
+        </button>
+        <button (click)="removeIncident(item, i)" ion-button color="secondary" icon-start>
+          <ion-icon name="trash"></ion-icon>
+          Done
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab bottom right>
+    <button (click)="addIncident()" ion-fab mini>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
