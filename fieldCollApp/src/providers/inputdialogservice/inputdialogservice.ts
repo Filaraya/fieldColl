@@ -32,15 +32,21 @@ export class InputdialogserviceProvider {
           value: incident ? incident.name : null
         },
         {
-          name: 'quantity',
-          placeholder: 'Quantity',
-          value: incident ? incident.quantity : null
+          name: 'rate',
+          placeholder: 'Bad/good/excellent',
+          value: incident ? incident.rate : null
         },
         {
           name: 'date',
           placeholder: 'Select Date',
           value: incident ? incident.date : null
         },
+        {
+          name: 'cooment',
+          placeholder: 'write your comment',
+          value: incident ? incident.comment : null
+        },
+
 
         
       ],

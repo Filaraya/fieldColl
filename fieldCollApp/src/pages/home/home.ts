@@ -54,8 +54,8 @@ export class HomePage {
 
     toast.present();
 
-    let message = "Incident - Name: " + incident.name + " - Quantity: " + incident.quantity;
-    let subject = "Shared via Groceries app";
+    let message = "Incident - Name: " + incident.name + " - rate: " + incident.quantity;
+    let subject = "Shared via app";
 
     this.socialSharing.share(message, subject).then(() => {
       // Sharing via email is possible
