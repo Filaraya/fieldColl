@@ -42,7 +42,7 @@ export class InputdialogserviceProvider {
           value: incident ? incident.date : null
         },
         {
-          name: 'cooment',
+          name: 'comment',
           placeholder: 'write your comment',
           value: incident ? incident.comment : null
         },
