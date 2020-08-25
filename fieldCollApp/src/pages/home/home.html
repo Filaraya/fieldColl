@@ -20,7 +20,7 @@
   
     <ion-card class="ion-text-center" *ngIf="incidents.length === 0">
       <img src="../../assets/imgs/mobile_coll_app.jpg" alt="ion">
-  </ion-card>
+  
   <ion-card color="secondary">
     <ion-card-header >
       <ion-card-subtitle>Collect incident</ion-card-subtitle>
@@ -32,12 +32,14 @@
       To add a new incident click the + below.
     </ion-card-content>
   </ion-card>
+
+</ion-card>
    
   <ion-list >
     <ion-item-sliding *ngFor="let incident of incidents; let i = index">
       <ion-item>
         <h2>{{incident.title}}</h2>
-        <p>{{incident.rate}}</p>
+        
 
       </ion-item>
 
