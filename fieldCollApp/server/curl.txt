@@ -2,22 +2,22 @@
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"title":"Car incidents","description":"it happens in the road","rating":"2"}' \
-  http://localhost:8000/api/incidents
+  http://localhost:8000/api/fieldcoll
 
 #add another item
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"title":"Fire explosion","description":"wild fire","rating":"4"}' \
-  http://localhost:8000/api/incidents
+  http://localhost:8000/api/fieldcoll
 
 # Update item
 curl --header "Content-Type: application/json" \
   --request PUT \
   --data '{"title":"Fire explosion","description":"wild fire","rating":"1"}' \
-  http://localhost:8000/api/incidents/{id}  
+  http://localhost:8000/api/fieldcoll/{id}  
 
 
  # Delete item
 curl --header "Content-Type: application/json" \
   --request DELETE \
-  http://localhost:8000/api/incidents/{id}
+  http://localhost:8000/api/fieldcoll/{id}

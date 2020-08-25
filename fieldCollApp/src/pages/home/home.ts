@@ -9,14 +9,20 @@ import { FieldCollAppProvider } from '../../providers/field-coll-app/field-coll-
 import { InputdialogserviceProvider } from '../../providers/inputdialogservice/inputdialogservice';
 // import social sharing
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-// date picker
-import { DatePicker } from '@ionic-native/date-picker/ngx';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
 
+  title = "Incidents";
+  socialSharing: any;
+
+  incidents = [];
+  
+  
+  errorMessage: string;
 
   constructor(
     public navCtrl: NavController, 
@@ -24,37 +30,47 @@ export class HomePage {
     public alertCtrl: AlertController, 
     public dataService: FieldCollAppProvider, 
     public inputDialogService: InputdialogserviceProvider,
-    public socialSharing: SocialSharing,
-    public datePicker: DatePicker)
-     {
+    public SocialSharing: SocialSharing){
+      dataService.dataChanged$.subscribe((dataChanged: boolean) => {
+        this.loadIncidents();
+      });
 
     
   }
+
+  ionViewDidLoad() {
+    this.loadIncidents();
+  }
   loadIncidents() {
-    return this.dataService.getIncidents();
+    return this.dataService.getIncidents()
+    .subscribe(
+      incidents => this.incidents = incidents,
+      error => this.errorMessage =<any>error);
+    
   }
 
-  removeIncident(incident, index) {
-    console.log("Removing Incident - ", incident, index);
+  removeIncident(id) {
+
+    console.log("Removing Incident - ", id.titile);
     const toast = this.toastCtrl.create({
-      message: 'Removing Incident - ' + index + " ...",
+      message: 'Removing Incident - ' + id.title + " ...",
       duration: 3000
     });
     toast.present();
 
-    this.dataService.removeIncident(index);  
+    this.dataService.removeIncident(id);  
   }
 
-  shareIncident(incident, index) {
-    console.log("Sharing incident - ", incident, index);
-    const toast = this.toastCtrl.create({
-      message: 'Sharing Incident - ' + index + " ...",
+  async shareIncident(incident,index) {
+    console.log("Sharing Item - ", incident,index);
+    const toast = await this.toastCtrl.create({
+      message: 'Sharing Item - ' + index + " ...",
       duration: 3000
     });
 
     toast.present();
 
-    let message = "Incident - Name: " + incident.name + " - rate: " + incident.quantity;
+    let message = "Incident - Name: " + incident.title + " - rate: " + incident.rate;
     let subject = "Shared via app";
 
     this.socialSharing.share(message, subject).then(() => {
@@ -65,19 +81,24 @@ export class HomePage {
     });    
 
   }
+
+  // Edit Incident
+  async editIncident(incident,index) {
+    
+    console.log("Edit Incident - ", incident,index);
+    const toast = this.toastCtrl.create({
+      message: `Editing Incident - ${incident.title} ...`,
+      duration: 3000
+    });
+    (await toast).present();
+    
+    this.inputDialogService.showPrompt(incident,index);
+  }  
+  // Add Incident
   addIncident() {
     console.log("Adding Incident");
     this.inputDialogService.showPrompt();
-}
-  editIncident(incident, index) {
-    console.log("Edit Incident - ", incident, index);
-    const toast = this.toastCtrl.create({
-      message: 'Editing Incident - ' + index + " ...",
-      duration: 3000
-    });
-    toast.present();
-    this.inputDialogService.showPrompt(incident, index);
-  }  
+  }
 
   
 }

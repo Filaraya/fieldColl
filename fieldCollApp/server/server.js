@@ -8,7 +8,7 @@ var methodOverride = require('method-override'); // simulate DELETE and PUT (exp
 var cors = require('cors');
 
 // Configuration
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/incidents");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/fieldcoll", { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
@@ -34,23 +34,23 @@ var Incident = mongoose.model('incident', {
 // Routes
 
     // Get incidents
-    app.get('/api/incidents', function(req, res) {
+    app.get('/api/fieldcoll', function(req, res) {
 
         console.log("fetching incident . . .");
 
         // use mongoose to get all incidents in the database
-        incident.find(function(err, incidents) {
+        Incident.find(function(err, fieldcoll) {
 
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
             if (err)
                 res.send(err)
 
-            res.json(incidents); // return all incidents in JSON format
+            res.json(fieldcoll); // return all incidents in JSON format
         });
     });
 
     // create incident and send back all incidents after creation
-    app.post('/api/incidents', function(req, res) {
+    app.post('/api/fieldcoll', function(req, res) {
 
         console.log("creating incident . . .");
 
@@ -65,17 +65,17 @@ var Incident = mongoose.model('incident', {
                 res.send(err);
 
             // get and return all the incidents after you create another
-            Incident.find(function(err, incidents) {
+            Incident.find(function(err, fieldcoll) {
                 if (err)
                     res.send(err)
-                res.json(incidents);
+                res.json(fieldcoll);
             });
         });
 
     });
 
     // Update a incidents 
-app.put('/api/incidents/:id', function (req, res) {
+app.put('/api/fieldcoll/:id', function (req, res) {
     const incident = {
         title : req.body.title,
         description : req.body.description,
@@ -83,7 +83,7 @@ app.put('/api/incidents/:id', function (req, res) {
             
     };
     console.log("Updating incident - ", req.params.id);
-    Grocery.update({_id: req.params.id}, grocery, function (err, raw) {
+    Incident.update({_id: req.params.id}, incident, function (err, raw) {
         if (err) {
             res.send(err);
         }
@@ -92,7 +92,7 @@ app.put('/api/incidents/:id', function (req, res) {
 });
 
     // delete a incident
-    app.delete('/api/incidents/:id', function(req, res) {
+    app.delete('/api/fieldcoll/:id', function(req, res) {
         Incident.remove({
             _id : req.params.id
         }, function(err, incident) {
@@ -100,12 +100,12 @@ app.put('/api/incidents/:id', function (req, res) {
                 console.error("Error deleting incident ", err);
             }
             else {
-                Grocery.find(function (err, incidents) {
+                Incident.find(function (err, fieldcoll) {
                     if (err) {
                         res.send(err);
                     }
                     else {
-                        res.json(incidents);
+                        res.json(fieldcoll);
                     }
                 });
             }

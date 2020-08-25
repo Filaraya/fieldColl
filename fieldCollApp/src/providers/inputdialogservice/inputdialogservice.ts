@@ -24,29 +24,27 @@ export class InputdialogserviceProvider {
   showPrompt(incident?, index? ) {
     const prompt = this.alertCtrl.create({
       title: incident ? 'Edit incident' : 'Add incident',
-      message: incident ? "Please edit incident..." : "Please enter incident...",
+      message: incident ? "Please edit incident..." : "Please add incident...",
       inputs: [
         {
-          name: 'name',
-          placeholder: 'Name',
-          value: incident ? incident.name : null
+          name: 'title',
+          type: 'text',
+          placeholder: 'title Name',
+          value: incident ? incident.title : null
+        },
+        
+        
+        {
+          name: 'description',
+          type: 'text',
+          placeholder: 'write description',
+          value: incident ? incident.description : null
         },
         {
           name: 'rate',
           placeholder: 'Bad/good/excellent',
           value: incident ? incident.rate : null
         },
-        {
-          name: 'date',
-          placeholder: 'Select Date',
-          value: incident ? incident.date : null
-        },
-        {
-          name: 'comment',
-          placeholder: 'write your comment',
-          value: incident ? incident.comment : null
-        },
-
 
         
       ],
@@ -59,10 +57,10 @@ export class InputdialogserviceProvider {
         },
         {
           text: 'Save',
-          handler: incident => {
+          handler: (incident) => {
             console.log('Saved clicked', incident);
             if (index !== undefined) {
-              this.dataService.editIncident(incident, index);
+              this.dataService.editIncident(incident,index);
             }
             else {
               this.dataService.addIncident(incident);

@@ -1,38 +1,57 @@
 <ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Field Collection</ion-title>
+  </ion-toolbar>
 
-    
-  
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+  <ion-toolbar color="secondary">
+    <ion-title>Incidents</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <h3 class="no-incident" text-center *ngIf="loadIncidents().length === 0">
-    
-     
-    <p>This app will help to collect a data and share of any incident</p>
-    <p> to add a new incident click the + below.</p>
-    
-  </h3>
-  <ion-list>
-    <ion-item-sliding *ngFor="let incident of loadIncidents(); let i = index">
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Incidents</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+    <ion-card class="ion-text-center" *ngIf="incidents.length === 0">
+      <img src="../../assets/imgs/mobile_coll_app.jpg" alt="ion">
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>collect incident</ion-card-subtitle>
+      <ion-card-title>incidents</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      This app will help to collect a data and share of any incident. 
+      To add a new incident click the + below.
+    </ion-card-content>
+  </ion-card>
+   
+  <ion-list >
+    <ion-item-sliding *ngFor="let incident of incidents; let i = index">
       <ion-item>
-        <h2>{{incident.name}}</h2>
+        <h2>{{incident.title}}</h2>
         <p>{{incident.rate}}</p>
 
       </ion-item>
-      
-      <ion-item-options>
-        <button (click)="editIncident(incident, i)" ion-button color="primary" icon-start>
+
+      <ion-item-options >
+        <button (click)="editIncident(incident,incident._id, i)"  icon-start>
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button (click)="shareIncident(item, i)" ion-button color="light" icon-start>
-          <ion-icon name="share"></ion-icon>
+        <button (click)="shareIncident(incident, i)" ion-button color="light" icon-start>
+          <ion-icon name="share" color="light"></ion-icon>
           Share
         </button>
-        <button (click)="removeIncident(item, i)" ion-button color="secondary" icon-start>
+        <button (click)="removeIncident(incident._id, i)" ion-button color="danger" icon-start>
           <ion-icon name="trash"></ion-icon>
           Done
         </button>
@@ -40,9 +59,11 @@
     </ion-item-sliding>
   </ion-list>
 
-  <ion-fab bottom right>
-    <button (click)="addIncident()" ion-fab mini>
-      <ion-icon name="add"></ion-icon>
-    </button>
+  <ion-fab bottom right color="secondary">
+    
+    <ion-fab-button (click)="addIncident()" ion-fab mini>
+      <ion-icon name="add" ></ion-icon>
+    </ion-fab-button>
+    
   </ion-fab>
 </ion-content>
