@@ -12,7 +12,8 @@ The project is installed with the regular ionic commands.
 
 ![Image of fieldCollApp](screenshot_FieldCollApp.png)
 
-#Technology used
- Ionic Framework and CLI, dependency injection, TypeScript, native and mobile apps, Ionic View, services, styling, theming, XCode, Android Studio, MongoDB and Heroku. 
+Technology used:
+
+Ionic Framework and CLI, Angular, TypeScript, Cordova Pluging,HTML,CSS,JavaScript, MongoDB and Heroku. 
 
  ## Filmon Araya
