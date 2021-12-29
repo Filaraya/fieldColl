@@ -1,4 +1,7 @@
 # FieldColl App
+
+![Field Collector App](Field App Demo.GIF)
+
 This app will help to collect a data and share of any incident.
 The project is installed with the regular ionic commands.
 
