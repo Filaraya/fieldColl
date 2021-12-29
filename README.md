@@ -1,6 +1,7 @@
 # FieldColl App
 
-![Field App Demo](Field App Demo.GIF)
+
+![Image of fieldCollApp](screenshot_FieldCollApp.png)
 
 This app will help to collect a data and share of any incident.
 The project is installed with the regular ionic commands.
@@ -13,7 +14,6 @@ The project is installed with the regular ionic commands.
 4. Run `npm start` to start the server
 5. you should see a message saying that the server was started and listenig on some port...
 
-![Image of fieldCollApp](screenshot_FieldCollApp.png)
 
 Technology used:
 
